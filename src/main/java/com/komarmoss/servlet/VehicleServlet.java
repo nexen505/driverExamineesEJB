@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintStream;
+import java.io.PrintWriter;
 
 @WebServlet(name = "ownerServlet", urlPatterns = {"/vehicles"})
 public class VehicleServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class VehicleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintStream out = new PrintStream(resp.getOutputStream());
+        final PrintWriter out = resp.getWriter();
         final String id = req.getParameter("id");
         final WebResponseVO webResponseVO = new WebResponseVO(id != null ? vehicleService.findVehicle(Integer.valueOf(id)) : vehicleService.findVehicles());
         out.print(CustomObjectMapper.getInstance().writeValueAsString(webResponseVO));
@@ -29,7 +29,7 @@ public class VehicleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintStream out = new PrintStream(resp.getOutputStream());
+        final PrintWriter out = resp.getWriter();
         final CustomObjectMapper mapper = CustomObjectMapper.getInstance();
         final VehicleVO vehicleVO = mapper.readValue(req.getReader(), VehicleVO.class);
         final WebResponseVO webResponseVO = new WebResponseVO(vehicleService.saveOrUpdateVehicle(vehicleVO));
@@ -43,7 +43,7 @@ public class VehicleServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintStream out = new PrintStream(resp.getOutputStream());
+        final PrintWriter out = resp.getWriter();
         final String id = req.getParameter("id");
         if (id != null) {
             final WebResponseVO webResponseVO = new WebResponseVO(vehicleService.removeVehicle(Integer.valueOf(id)));

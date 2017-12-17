@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintStream;
+import java.io.PrintWriter;
 
 @WebServlet(name = "ownerServlet", urlPatterns = {"/owners"})
 public class OwnerServlet extends HttpServlet {
@@ -22,7 +22,7 @@ public class OwnerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintStream out = new PrintStream(resp.getOutputStream());
+        final PrintWriter out = resp.getWriter();
         final String id = req.getParameter("id");
         final WebResponseVO webResponseVO = new WebResponseVO(id != null ? ownerService.findOwner(Integer.valueOf(id)) : ownerService.findOwners());
         out.print(CustomObjectMapper.getInstance().writeValueAsString(webResponseVO));
@@ -30,7 +30,7 @@ public class OwnerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintStream out = new PrintStream(resp.getOutputStream());
+        final PrintWriter out = resp.getWriter();
         final CustomObjectMapper mapper = CustomObjectMapper.getInstance();
         final OwnerVO ownerVO = mapper.readValue(req.getReader(), OwnerVO.class);
         final WebResponseVO webResponseVO = new WebResponseVO(ownerService.saveOrUpdateOwner(ownerVO));
@@ -44,7 +44,7 @@ public class OwnerServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintStream out = new PrintStream(resp.getOutputStream());
+        final PrintWriter out = resp.getWriter();
         final String id = req.getParameter("id");
         if (id != null) {
             final WebResponseVO webResponseVO = new WebResponseVO(ownerService.removeOwner(Integer.valueOf(id)));
