@@ -4,6 +4,7 @@ import com.komarmoss.model.entity.VehicleEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -26,7 +27,10 @@ public class VehicleDAOImpl implements VehicleDAO {
     @Override
     public Integer saveItem(VehicleEntity entity) {
         if (entity != null) {
+            EntityTransaction trx = entityManager.getTransaction();
+            trx.begin();
             entityManager.persist(entity);
+            trx.commit();
             return entity.getId();
         } else return null;
     }
@@ -41,12 +45,22 @@ public class VehicleDAOImpl implements VehicleDAO {
 
     @Override
     public void updateItem(VehicleEntity entity) {
-        if (entity != null) entityManager.merge(entity);
+        if (entity != null) {
+            EntityTransaction trx = entityManager.getTransaction();
+            trx.begin();
+            entityManager.merge(entity);
+            trx.commit();
+        }
     }
 
     @Override
     public void removeItem(VehicleEntity entity) {
-        if (entity != null) entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+        if (entity != null) {
+            EntityTransaction trx = entityManager.getTransaction();
+            trx.begin();
+            entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+            trx.commit();
+        }
     }
 
     @Override

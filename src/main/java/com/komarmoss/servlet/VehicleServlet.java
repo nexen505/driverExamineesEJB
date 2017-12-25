@@ -1,9 +1,9 @@
 package com.komarmoss.servlet;
 
+import com.komarmoss.bean.VehicleService;
 import com.komarmoss.config.CustomObjectMapper;
 import com.komarmoss.model.vo.VehicleVO;
 import com.komarmoss.model.vo.WebResponseVO;
-import com.komarmoss.bean.VehicleService;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,7 +16,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ownerServlet", urlPatterns = {"/vehicles"})
 public class VehicleServlet extends HttpServlet {
-    @EJB
+
+    @EJB(beanName = "vehicleService")
     private VehicleService vehicleService;
 
     @Override

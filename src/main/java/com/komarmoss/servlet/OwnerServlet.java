@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 @WebServlet(name = "ownerServlet", urlPatterns = {"/owners"})
 public class OwnerServlet extends HttpServlet {
 
-    @EJB
+    @EJB(beanName = "ownerService")
     private OwnerService ownerService;
 
     @Override

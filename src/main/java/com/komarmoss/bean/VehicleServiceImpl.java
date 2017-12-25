@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class VehicleServiceImpl implements VehicleService {
 
-    @EJB
+    @EJB(beanName = "vehicleDAO")
     private VehicleDAO vehicleDAO;
 
     @Override

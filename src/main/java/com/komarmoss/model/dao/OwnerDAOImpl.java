@@ -1,17 +1,12 @@
 package com.komarmoss.model.dao;
 
 import com.komarmoss.model.entity.OwnerEntity;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Stateless
 public class OwnerDAOImpl implements OwnerDAO {
@@ -32,7 +27,10 @@ public class OwnerDAOImpl implements OwnerDAO {
     @Override
     public Integer saveItem(OwnerEntity entity) {
         if (entity != null) {
+            EntityTransaction trx = entityManager.getTransaction();
+            trx.begin();
             entityManager.persist(entity);
+            trx.commit();
             return entity.getId();
         } else return null;
     }
@@ -47,12 +45,22 @@ public class OwnerDAOImpl implements OwnerDAO {
 
     @Override
     public void updateItem(OwnerEntity entity) {
-        if (entity != null) entityManager.merge(entity);
+        if (entity != null) {
+            EntityTransaction trx = entityManager.getTransaction();
+            trx.begin();
+            entityManager.merge(entity);
+            trx.commit();
+        }
     }
 
     @Override
     public void removeItem(OwnerEntity entity) {
-        if (entity != null) entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+        if (entity != null) {
+            EntityTransaction trx = entityManager.getTransaction();
+            trx.begin();
+            entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+            trx.commit();
+        }
     }
 
     @Override
