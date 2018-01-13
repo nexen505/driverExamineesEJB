@@ -1,7 +1,9 @@
 package com.komarmoss.bean;
 
+import com.komarmoss.model.dao.TypeOfVehicleDAO;
 import com.komarmoss.model.dao.VehicleDAO;
 import com.komarmoss.model.entity.VehicleEntity;
+import com.komarmoss.model.vo.TypeOfVehicleVO;
 import com.komarmoss.model.vo.VehicleVO;
 
 import javax.ejb.EJB;
@@ -14,6 +16,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     @EJB(beanName = "vehicleDAO")
     private VehicleDAO vehicleDAO;
+
+    @EJB
+    private TypeOfVehicleDAO typeOfVehicleDAO;
 
     @Override
     public List<VehicleVO> findVehicles() {
@@ -43,5 +48,14 @@ public class VehicleServiceImpl implements VehicleService {
         }
         return false;
     }
+
+    @Override
+    public List<TypeOfVehicleVO> getTypesOfVehicles() {
+        return typeOfVehicleDAO.getAllItems()
+                .parallelStream()
+                .map(TypeOfVehicleVO::new)
+                .collect(Collectors.toList());
+    }
+
 
 }

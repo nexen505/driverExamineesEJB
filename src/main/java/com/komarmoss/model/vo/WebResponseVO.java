@@ -7,6 +7,13 @@ import java.util.Map;
 
 public class WebResponseVO<T> implements Serializable {
 
+    public static final WebResponseVO SUCCESS = new WebResponseVO();
+    public static final WebResponseVO EMPTY_LIST = new WebResponseVO(Collections.emptyList());
+    private boolean success;
+    private Serializable msg;
+    private int total;
+    private Object result;
+
     public WebResponseVO() {
         success = true;
     }
@@ -86,12 +93,4 @@ public class WebResponseVO<T> implements Serializable {
     public void setResult(T result) {
         this.result = result;
     }
-
-    public static final WebResponseVO SUCCESS = new WebResponseVO();
-    public static final WebResponseVO EMPTY_LIST = new WebResponseVO(Collections.emptyList());
-
-    private boolean success;
-    private Serializable msg;
-    private int total;
-    private Object result;
 }

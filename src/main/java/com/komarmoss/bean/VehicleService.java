@@ -1,5 +1,6 @@
 package com.komarmoss.bean;
 
+import com.komarmoss.model.vo.TypeOfVehicleVO;
 import com.komarmoss.model.vo.VehicleVO;
 
 import javax.ejb.Local;
@@ -15,5 +16,7 @@ public interface VehicleService {
     VehicleVO saveOrUpdateVehicle(VehicleVO owner);
 
     boolean removeVehicle(Integer id);
+
+    List<TypeOfVehicleVO> getTypesOfVehicles();
 
 }

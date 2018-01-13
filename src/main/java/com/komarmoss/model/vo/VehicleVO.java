@@ -1,5 +1,6 @@
 package com.komarmoss.model.vo;
 
+import com.komarmoss.model.entity.OwnerEntity;
 import com.komarmoss.model.entity.TypeOfVehicleEntity;
 import com.komarmoss.model.entity.VehicleEntity;
 
@@ -10,9 +11,14 @@ public class VehicleVO implements Serializable {
     private String name;
     private String brand;
     private Integer yearOfIssue;
-    private VehicleTypeVO type;
+    private TypeOfVehicleVO type;
+    private OwnerVO owner;
 
     public VehicleVO() {
+    }
+
+    public VehicleVO(Integer id) {
+        this.id = id;
     }
 
     public VehicleVO(VehicleEntity entity) {
@@ -23,7 +29,11 @@ public class VehicleVO implements Serializable {
             yearOfIssue = entity.getYearOfIssue();
             TypeOfVehicleEntity vehicleType = entity.getType();
             if (vehicleType != null)
-                type = new VehicleTypeVO(vehicleType);
+                type = new TypeOfVehicleVO(vehicleType.getId());
+
+            OwnerEntity owner = entity.getOwner();
+            if (owner != null)
+                this.owner = new OwnerVO(owner.getId());
         }
     }
 
@@ -38,6 +48,12 @@ public class VehicleVO implements Serializable {
             TypeOfVehicleEntity typeOfVehicleEntity = new TypeOfVehicleEntity();
             typeOfVehicleEntity.setId(type.getId());
             vehicleEntity.setType(typeOfVehicleEntity);
+        }
+
+        if (owner != null) {
+            OwnerEntity ownerEntity = new OwnerEntity();
+            ownerEntity.setId(owner.getId());
+            vehicleEntity.setOwner(ownerEntity);
         }
 
         return vehicleEntity;
@@ -67,19 +83,27 @@ public class VehicleVO implements Serializable {
         this.brand = brand;
     }
 
-    public int getYearOfIssue() {
+    public Integer getYearOfIssue() {
         return yearOfIssue;
     }
 
-    public void setYearOfIssue(int yearOfIssue) {
+    public void setYearOfIssue(Integer yearOfIssue) {
         this.yearOfIssue = yearOfIssue;
     }
 
-    public VehicleTypeVO getType() {
+    public TypeOfVehicleVO getType() {
         return type;
     }
 
-    public void setType(VehicleTypeVO type) {
+    public void setType(TypeOfVehicleVO type) {
         this.type = type;
+    }
+
+    public OwnerVO getOwner() {
+        return owner;
+    }
+
+    public void setOwner(OwnerVO owner) {
+        this.owner = owner;
     }
 }
