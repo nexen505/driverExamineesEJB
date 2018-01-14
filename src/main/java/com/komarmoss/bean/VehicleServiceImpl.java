@@ -11,13 +11,13 @@ import javax.ejb.Stateless;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Stateless
+@Stateless(name = "vehicleService")
 public class VehicleServiceImpl implements VehicleService {
 
     @EJB(beanName = "vehicleDAO")
     private VehicleDAO vehicleDAO;
 
-    @EJB
+    @EJB(beanName = "typeOfVehicleDAO")
     private TypeOfVehicleDAO typeOfVehicleDAO;
 
     @Override

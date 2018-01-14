@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "vehicleServlet", urlPatterns = {"/vehicles"})
+@WebServlet(name = "vehicleServlet", urlPatterns = {"/rest/vehicles"})
 public class VehicleServlet extends HttpServlet {
+
     private final CustomObjectMapper mapper = CustomObjectMapper.getInstance();
     @EJB(beanName = "vehicleService")
     private VehicleService vehicleService;

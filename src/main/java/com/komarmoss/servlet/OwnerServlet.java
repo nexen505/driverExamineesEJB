@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ownerServlet", urlPatterns = {"/owners"})
+@WebServlet(name = "ownerServlet", urlPatterns = {"/rest/owners"})
 public class OwnerServlet extends HttpServlet {
 
     private final CustomObjectMapper mapper = CustomObjectMapper.getInstance();

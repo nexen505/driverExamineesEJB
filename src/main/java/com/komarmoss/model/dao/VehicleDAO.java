@@ -14,9 +14,9 @@ public interface VehicleDAO {
 
     Integer saveItem(VehicleEntity entity);
 
-    void saveOrUpdateItem(VehicleEntity entity);
+    Integer saveOrUpdateItem(VehicleEntity entity);
 
-    void updateItem(VehicleEntity entity);
+    Integer updateItem(VehicleEntity entity);
 
     void removeItem(VehicleEntity entity);
 

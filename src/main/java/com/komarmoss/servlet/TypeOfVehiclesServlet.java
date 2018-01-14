@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "typeOfVehiclesServlet", urlPatterns = {"/typesOfVehicle"})
+@WebServlet(name = "typeOfVehiclesServlet", urlPatterns = {"/rest/typesOfVehicle"})
 public class TypeOfVehiclesServlet extends HttpServlet {
+
     private final CustomObjectMapper mapper = CustomObjectMapper.getInstance();
-    @EJB
+    @EJB(beanName = "vehicleService")
     private VehicleService vehicleService;
 
     @Override

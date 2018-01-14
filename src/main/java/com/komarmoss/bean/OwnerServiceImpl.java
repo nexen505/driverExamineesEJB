@@ -4,11 +4,12 @@ import com.komarmoss.model.dao.OwnerDAO;
 import com.komarmoss.model.entity.OwnerEntity;
 import com.komarmoss.model.vo.OwnerVO;
 
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Stateless
+@Stateless(name = "ownerService")
 public class OwnerServiceImpl implements OwnerService {
 
     @EJB(beanName = "ownerDAO")
